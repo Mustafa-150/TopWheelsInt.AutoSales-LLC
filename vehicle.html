@@ -1,134 +1,152 @@
-// ===== TopWheels Int, Auto Sales LLC - main.js =====
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Vehicle Details | TopWheels Int, Auto Sales LLC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Vehicle details for TopWheels Int, Auto Sales LLC in North Carolina.">
 
-const INVENTORY = [
-  { id:"tw-1001", year:2021, make:"Toyota", model:"Camry", trim:"SE", price:24990, miles:38420, fuel:"Gas", drivetrain:"FWD", tag:"Certified" },
-  { id:"tw-1002", year:2020, make:"Honda", model:"Civic", trim:"Sport", price:21990, miles:41210, fuel:"Gas", drivetrain:"FWD", tag:"Sport" },
-  { id:"tw-1003", year:2022, make:"Ford", model:"F-150", trim:"XLT", price:42990, miles:26880, fuel:"Gas", drivetrain:"4WD", tag:"Truck" },
-  { id:"tw-1004", year:2021, make:"BMW", model:"330i", trim:"", price:35990, miles:29500, fuel:"Gas", drivetrain:"RWD", tag:"Premium" },
-  { id:"tw-1005", year:2019, make:"Jeep", model:"Grand Cherokee", trim:"", price:27990, miles:55800, fuel:"Gas", drivetrain:"4WD", tag:"SUV" },
-  { id:"tw-1006", year:2023, make:"Tesla", model:"Model 3", trim:"", price:36990, miles:14250, fuel:"Electric", drivetrain:"RWD", tag:"EV" },
-];
+  <link rel="icon" href="assets/logo.jpeg.jpeg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
 
-function money(n){
-  return new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(n);
-}
-function number(n){
-  return new Intl.NumberFormat("en-US").format(n);
-}
+<body>
+<header class="header">
+  <div class="container nav">
+    <div class="brand">
+      <img src="assets/logo.jpeg.jpeg" alt="TopWheels Int Logo">
+      <span>TopWheels Int<br><small>Auto Sales LLC</small></span>
+    </div>
 
-function setYear(){
-  const el = document.getElementById("year");
-  if(el) el.textContent = new Date().getFullYear();
-}
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="inventory.html">Inventory</a>
+      <a href="financing.html">Financing</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
 
-function renderInventoryCards(list){
-  const grid = document.getElementById("inventoryGrid");
-  if(!grid) return;
+    <div class="nav-actions">
+      <a href="tel:3366874162" class="phone">📞 336-687-4162</a>
+      <a href="inventory.html" class="btn">Back</a>
+      <a href="contact.html" class="btn primary">Schedule Visit</a>
+    </div>
+  </div>
+</header>
 
-  grid.innerHTML = list.map(v => {
-    const name = `${v.year} ${v.make} ${v.model}${v.trim ? " " + v.trim : ""}`;
-    return `
-      <a class="inv-card" href="vehicle.html?id=${encodeURIComponent(v.id)}">
-        <div class="media">
-          <span class="tag">${v.tag}</span>
+<main>
+  <!-- Top summary -->
+  <section class="veh-hero">
+    <div class="container veh-hero-grid">
+      <div class="veh-title">
+        <div class="crumbs">
+          <a href="inventory.html">Inventory</a> <span>›</span> <span id="vehCrumb">Vehicle</span>
         </div>
-        <div class="body">
-          <p class="title">${name}</p>
-          <div class="meta">
-            <span>${number(v.miles)} mi</span>
-            <span>•</span>
-            <span>${v.drivetrain}</span>
-            <span>•</span>
-            <span>${v.fuel}</span>
+
+        <h1 id="vehTitle">Loading vehicle...</h1>
+        <p id="vehSubtitle">Please wait…</p>
+
+        <div class="veh-cta">
+          <a class="btn primary" href="tel:3366874162">Call 336-687-4162</a>
+          <a class="btn outline" href="contact.html">Request Info</a>
+          <a class="btn" href="financing.html">Financing</a>
+        </div>
+      </div>
+
+      <aside class="veh-summary">
+        <div class="veh-photo" aria-hidden="true">
+          <span class="veh-tag" id="vehTag">Vehicle</span>
+        </div>
+
+        <div class="veh-stats">
+          <div class="veh-stat">
+            <span class="label">Price</span>
+            <span class="value" id="vehPrice">—</span>
           </div>
-          <div class="price">
-            <span class="money">${money(v.price)}</span>
-            <span class="small">View →</span>
+          <div class="veh-stat">
+            <span class="label">Mileage</span>
+            <span class="value" id="vehMiles">—</span>
+          </div>
+          <div class="veh-stat">
+            <span class="label">Fuel</span>
+            <span class="value" id="vehFuel">—</span>
+          </div>
+          <div class="veh-stat">
+            <span class="label">Drivetrain</span>
+            <span class="value" id="vehDrive">—</span>
           </div>
         </div>
-      </a>
-    `;
-  }).join("");
-}
+      </aside>
+    </div>
+  </section>
 
-function setupInventoryPage(){
-  const grid = document.getElementById("inventoryGrid");
-  if(!grid) return; // not on inventory page
+  <!-- Details -->
+  <section class="veh-details">
+    <div class="container">
+      <div class="veh-details-grid">
 
-  const searchEl = document.getElementById("search");
-  const makeEl = document.getElementById("make");
-  const fuelEl = document.getElementById("fuel");
-  const priceEl = document.getElementById("price");
-  const sortEl = document.getElementById("sort");
-  const countEl = document.getElementById("resultCount");
-  const clearBtn = document.getElementById("clearFilters");
+        <div class="panel">
+          <h2 class="veh-h2">Vehicle Overview</h2>
+          <p class="veh-text" id="vehOverview">
+            This vehicle is part of our demo inventory list. Replace the details with your real inventory anytime.
+          </p>
 
-  // Fill makes
-  const makes = [...new Set(INVENTORY.map(v => v.make))].sort();
-  makes.forEach(m => {
-    const opt = document.createElement("option");
-    opt.value = m;
-    opt.textContent = m;
-    makeEl.appendChild(opt);
-  });
+          <div class="veh-chips" id="vehChips"></div>
 
-  function apply(){
-    let list = [...INVENTORY];
+          <div class="veh-divider"></div>
 
-    const q = (searchEl.value || "").trim().toLowerCase();
-    const make = makeEl.value;
-    const fuel = fuelEl.value;
-    const price = priceEl.value;
-    const sort = sortEl.value;
+          <h3 class="veh-h3">What’s included</h3>
+          <ul class="veh-list">
+            <li>Multi-point inspection</li>
+            <li>Trade-ins welcome</li>
+            <li>Financing options available</li>
+            <li>Optional warranty plans</li>
+          </ul>
+        </div>
 
-    if(q){
-      list = list.filter(v => {
-        const text = `${v.year} ${v.make} ${v.model} ${v.trim} ${v.tag} ${v.fuel} ${v.drivetrain}`.toLowerCase();
-        return text.includes(q);
-      });
-    }
-    if(make !== "Any") list = list.filter(v => v.make === make);
-    if(fuel !== "Any") list = list.filter(v => v.fuel === fuel);
+        <div class="panel">
+          <h2 class="veh-h2">Next Steps</h2>
+          <p class="veh-text">Want to test drive or get a payment estimate? Contact us and we’ll respond quickly.</p>
 
-    if(price !== "Any"){
-      if(price === "40000-max"){
-        list = list.filter(v => v.price >= 40000);
-      } else {
-        const [min,max] = price.split("-").map(Number);
-        list = list.filter(v => v.price >= min && v.price <= max);
-      }
-    }
+          <div class="veh-next">
+            <a class="btn primary" href="contact.html">Schedule a Visit</a>
+            <a class="btn" href="contact.html">Get Pre-Approved</a>
+            <a class="btn outline" href="tel:3366874162">Call Now</a>
+          </div>
 
-    if(sort === "year-desc") list.sort((a,b)=> b.year - a.year);
-    if(sort === "price-asc") list.sort((a,b)=> a.price - b.price);
-    if(sort === "price-desc") list.sort((a,b)=> b.price - a.price);
-    if(sort === "miles-asc") list.sort((a,b)=> a.miles - b.miles);
+          <div class="veh-divider"></div>
 
-    renderInventoryCards(list);
-    if(countEl) countEl.textContent = `${list.length} vehicle${list.length===1 ? "" : "s"}`;
-  }
+          <div class="veh-note">
+            <b>TopWheels Int, Auto Sales LLC</b><br>
+            North Carolina • Call <a href="tel:3366874162">336-687-4162</a>
+          </div>
+        </div>
 
-  // Events
-  [searchEl, makeEl, fuelEl, priceEl, sortEl].forEach(el => {
-    el.addEventListener("input", apply);
-    el.addEventListener("change", apply);
-  });
+      </div>
+    </div>
+  </section>
+</main>
 
-  if(clearBtn){
-    clearBtn.addEventListener("click", () => {
-      searchEl.value = "";
-      makeEl.value = "Any";
-      fuelEl.value = "Any";
-      priceEl.value = "Any";
-      sortEl.value = "year-desc";
-      apply();
-    });
-  }
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <img src="assets/logo.jpeg.jpeg" alt="TopWheels Logo" class="footer-logo">
+      <p>TopWheels Int, Auto Sales LLC</p>
+      <p>📞 336-687-4162</p>
+    </div>
 
-  apply();
-}
+    <div>
+      <h4>Pages</h4>
+      <a href="inventory.html">Inventory</a>
+      <a href="financing.html">Financing</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
 
-document.addEventListener("DOMContentLoaded", () => {
-  setYear();
-  setupInventoryPage();
-});
+  <p class="copy">© <span id="year"></span> TopWheels Int, Auto Sales LLC</p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
