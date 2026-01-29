@@ -268,3 +268,157 @@ a{color:inherit;text-decoration:none;}
   .inv-hero-grid{ flex-direction:column; align-items:flex-start; }
   .inventory-cards{ grid-template-columns: 1fr; }
 }
+/* ===== Vehicle page ===== */
+
+.veh-hero{
+  padding: 55px 0 24px;
+  background: radial-gradient(700px 260px at 25% 20%, rgba(255,196,0,.14), transparent 60%);
+}
+
+.veh-hero-grid{
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 22px;
+  align-items: start;
+}
+
+.crumbs{
+  color:#bdbdbd;
+  font-size:13px;
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+.crumbs a{ color:#e8e8e8; }
+.crumbs span{ opacity:.8; }
+
+.veh-title h1{
+  margin: 10px 0 8px;
+  font-size: 44px;
+  line-height: 1.05;
+}
+#vehSubtitle{ margin:0; color:#cfcfcf; }
+
+.veh-cta{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top: 18px;
+}
+
+/* Summary box */
+.veh-summary{
+  background:#0f0f0f;
+  border:1px solid #222;
+  border-radius:16px;
+  overflow:hidden;
+}
+
+.veh-photo{
+  height: 210px;
+  background:
+    radial-gradient(520px 260px at 70% 15%, rgba(255,196,0,.18), transparent 55%),
+    linear-gradient(140deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  position:relative;
+}
+
+.veh-tag{
+  position:absolute;
+  top:12px; left:12px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid #222;
+  background: rgba(0,0,0,.45);
+  font-weight:700;
+  font-size:12px;
+}
+
+.veh-stats{
+  padding: 14px;
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.veh-stat{
+  background:#0b0b0b;
+  border:1px solid #222;
+  border-radius:14px;
+  padding:12px;
+}
+.veh-stat .label{
+  display:block;
+  color:#bdbdbd;
+  font-size:12px;
+  font-weight:700;
+}
+.veh-stat .value{
+  display:block;
+  margin-top:4px;
+  font-weight:900;
+  font-size:16px;
+  color:#fff;
+}
+
+/* Details section */
+.veh-details{ padding: 18px 0 70px; }
+
+.veh-details-grid{
+  display:grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 18px;
+}
+
+.veh-h2{
+  margin:0 0 10px;
+  color: var(--yellow);
+}
+.veh-h3{ margin: 14px 0 10px; }
+.veh-text{ margin:0; color:#cfcfcf; line-height:1.6; }
+
+.veh-chips{
+  margin-top: 14px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.veh-chip{
+  padding:10px 12px;
+  border-radius:999px;
+  border:1px solid #222;
+  background:#0b0b0b;
+  font-weight:700;
+  font-size:13px;
+  color:#eaeaea;
+}
+
+.veh-divider{
+  height:1px;
+  background:#222;
+  margin: 16px 0;
+}
+
+.veh-list{
+  margin:0;
+  padding-left:18px;
+  color:#d8d8d8;
+  line-height:1.7;
+}
+
+.veh-next{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.veh-note{
+  color:#cfcfcf;
+  line-height:1.6;
+}
+.veh-note a{ color: var(--yellow); }
+
+/* Mobile */
+@media (max-width: 980px){
+  .veh-hero-grid{ grid-template-columns: 1fr; }
+  .veh-details-grid{ grid-template-columns: 1fr; }
+  .veh-title h1{ font-size: 36px; }
+}
