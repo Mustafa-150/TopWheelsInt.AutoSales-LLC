@@ -1,12 +1,12 @@
 // ===== TopWheels Int, Auto Sales LLC - main.js =====
 
 const INVENTORY = [
-  { id:"tw-1001", year:2021, make:"Toyota", model:"Camry", trim:"SE", price:24990, miles:38420, fuel:"Gas", drivetrain:"FWD", tag:"Certified" },
-  { id:"tw-1002", year:2020, make:"Honda", model:"Civic", trim:"Sport", price:21990, miles:41210, fuel:"Gas", drivetrain:"FWD", tag:"Sport" },
-  { id:"tw-1003", year:2022, make:"Ford", model:"F-150", trim:"XLT", price:42990, miles:26880, fuel:"Gas", drivetrain:"4WD", tag:"Truck" },
-  { id:"tw-1004", year:2021, make:"BMW", model:"330i", trim:"", price:35990, miles:29500, fuel:"Gas", drivetrain:"RWD", tag:"Premium" },
-  { id:"tw-1005", year:2019, make:"Jeep", model:"Grand Cherokee", trim:"", price:27990, miles:55800, fuel:"Gas", drivetrain:"4WD", tag:"SUV" },
-  { id:"tw-1006", year:2023, make:"Tesla", model:"Model 3", trim:"", price:36990, miles:14250, fuel:"Electric", drivetrain:"RWD", tag:"EV" },
+  { id:"tw-1001", year:2021, make:"Toyota", model:"Camry", trim:"SE", price:24990, miles:38420, fuel:"Gas", drivetrain:"FWD", tag:"Certified", color:"Black", stock:"TW-1001" },
+  { id:"tw-1002", year:2020, make:"Honda", model:"Civic", trim:"Sport", price:21990, miles:41210, fuel:"Gas", drivetrain:"FWD", tag:"Sport", color:"Gray", stock:"TW-1002" },
+  { id:"tw-1003", year:2022, make:"Ford", model:"F-150", trim:"XLT", price:42990, miles:26880, fuel:"Gas", drivetrain:"4WD", tag:"Truck", color:"White", stock:"TW-1003" },
+  { id:"tw-1004", year:2021, make:"BMW", model:"330i", trim:"", price:35990, miles:29500, fuel:"Gas", drivetrain:"RWD", tag:"Premium", color:"Blue", stock:"TW-1004" },
+  { id:"tw-1005", year:2019, make:"Jeep", model:"Grand Cherokee", trim:"", price:27990, miles:55800, fuel:"Gas", drivetrain:"4WD", tag:"SUV", color:"Silver", stock:"TW-1005" },
+  { id:"tw-1006", year:2023, make:"Tesla", model:"Model 3", trim:"", price:36990, miles:14250, fuel:"Electric", drivetrain:"RWD", tag:"EV", color:"Red", stock:"TW-1006" },
 ];
 
 function money(n){
@@ -15,12 +15,16 @@ function money(n){
 function number(n){
   return new Intl.NumberFormat("en-US").format(n);
 }
+function qs(name){
+  return new URLSearchParams(location.search).get(name);
+}
 
 function setYear(){
   const el = document.getElementById("year");
   if(el) el.textContent = new Date().getFullYear();
 }
 
+/* ===== Inventory cards ===== */
 function renderInventoryCards(list){
   const grid = document.getElementById("inventoryGrid");
   if(!grid) return;
@@ -51,9 +55,10 @@ function renderInventoryCards(list){
   }).join("");
 }
 
+/* ===== Inventory filters ===== */
 function setupInventoryPage(){
   const grid = document.getElementById("inventoryGrid");
-  if(!grid) return; // not on inventory page
+  if(!grid) return;
 
   const searchEl = document.getElementById("search");
   const makeEl = document.getElementById("make");
@@ -108,7 +113,6 @@ function setupInventoryPage(){
     if(countEl) countEl.textContent = `${list.length} vehicle${list.length===1 ? "" : "s"}`;
   }
 
-  // Events
   [searchEl, makeEl, fuelEl, priceEl, sortEl].forEach(el => {
     el.addEventListener("input", apply);
     el.addEventListener("change", apply);
@@ -128,7 +132,48 @@ function setupInventoryPage(){
   apply();
 }
 
+/* ===== Vehicle page render ===== */
+function setupVehiclePage(){
+  const titleEl = document.getElementById("vehTitle");
+  if(!titleEl) return; // not on vehicle page
+
+  const id = qs("id");
+  const v = INVENTORY.find(x => x.id === id);
+
+  if(!v){
+    titleEl.textContent = "Vehicle not found";
+    const sub = document.getElementById("vehSubtitle");
+    if(sub) sub.textContent = "Please go back to inventory and select a vehicle.";
+    return;
+  }
+
+  const name = `${v.year} ${v.make} ${v.model}${v.trim ? " " + v.trim : ""}`;
+
+  document.getElementById("vehTitle").textContent = name;
+  document.getElementById("vehCrumb").textContent = name;
+  document.getElementById("vehSubtitle").textContent = `Stock: ${v.stock || v.id} • Color: ${v.color || "—"}`;
+  document.getElementById("vehTag").textContent = v.tag || "Vehicle";
+
+  document.getElementById("vehPrice").textContent = money(v.price);
+  document.getElementById("vehMiles").textContent = `${number(v.miles)} miles`;
+  document.getElementById("vehFuel").textContent = v.fuel;
+  document.getElementById("vehDrive").textContent = v.drivetrain;
+
+  const chips = document.getElementById("vehChips");
+  if(chips){
+    chips.innerHTML = `
+      <span class="veh-chip">Year: ${v.year}</span>
+      <span class="veh-chip">Make: ${v.make}</span>
+      <span class="veh-chip">Model: ${v.model}</span>
+      <span class="veh-chip">Fuel: ${v.fuel}</span>
+      <span class="veh-chip">Drivetrain: ${v.drivetrain}</span>
+      <span class="veh-chip">Tag: ${v.tag}</span>
+    `;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   setYear();
   setupInventoryPage();
+  setupVehiclePage();
 });
