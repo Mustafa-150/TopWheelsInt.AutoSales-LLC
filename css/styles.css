@@ -422,3 +422,99 @@ a{color:inherit;text-decoration:none;}
   .veh-details-grid{ grid-template-columns: 1fr; }
   .veh-title h1{ font-size: 36px; }
 }
+/* ===== Financing page ===== */
+.page-hero{
+  padding: 60px 0 28px;
+  background: radial-gradient(700px 260px at 25% 20%, rgba(255,196,0,.14), transparent 60%);
+}
+.page-hero-grid{
+  display:grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap:18px;
+  align-items:start;
+}
+.page-hero h1{
+  margin:0 0 10px;
+  font-size: 44px;
+  line-height:1.05;
+}
+.page-hero p{ margin:0; color:#cfcfcf; line-height:1.6; }
+
+.quick-points{
+  margin-top:14px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.qp{
+  padding:10px 12px;
+  border-radius:999px;
+  border:1px solid #222;
+  background:#0b0b0b;
+  font-weight:700;
+  font-size:13px;
+  color:#eaeaea;
+}
+
+.hero-side{ padding:18px; }
+
+.apply-grid{
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap:18px;
+}
+
+.apply-form textarea{
+  width:100%;
+  padding:12px 12px;
+  border-radius:14px;
+  border:1px solid #222;
+  background:#0b0b0b;
+  color:#fff;
+  outline:none;
+}
+.apply-form textarea:focus{
+  border-color: rgba(255,196,0,.5);
+  box-shadow: 0 0 0 3px rgba(255,196,0,.12);
+}
+
+.form2{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:12px;
+  margin-bottom:12px;
+}
+
+.apply-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.faq{
+  border:1px solid #222;
+  background:#0b0b0b;
+  border-radius:14px;
+  padding:12px 14px;
+  margin:10px 0;
+}
+.faq summary{
+  cursor:pointer;
+  font-weight:800;
+  color:#fff;
+}
+.faq p{
+  margin:10px 0 0;
+  color:#cfcfcf;
+  line-height:1.6;
+}
+
+@media(max-width:980px){
+  .page-hero-grid{ grid-template-columns:1fr; }
+  .apply-grid{ grid-template-columns:1fr; }
+  .page-hero h1{ font-size:36px; }
+}
+@media(max-width:680px){
+  .form2{ grid-template-columns:1fr; }
+}
