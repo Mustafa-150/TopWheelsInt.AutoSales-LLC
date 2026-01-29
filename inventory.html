@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Inventory | TopWheels Int, Auto Sales LLC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Browse TopWheels Int, Auto Sales LLC inventory in North Carolina. Search and filter vehicles.">
+
+  <link rel="icon" href="assets/logo.jpeg.jpeg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+<header class="header">
+  <div class="container nav">
+    <div class="brand">
+      <img src="assets/logo.jpeg.jpeg" alt="TopWheels Int Logo">
+      <span>TopWheels Int<br><small>Auto Sales LLC</small></span>
+    </div>
+
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="inventory.html" class="active">Inventory</a>
+      <a href="financing.html">Financing</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="tel:3366874162" class="phone">📞 336-687-4162</a>
+      <a href="contact.html" class="btn primary">Get Approved</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Title + quick info -->
+  <section class="inv-hero">
+    <div class="container inv-hero-grid">
+      <div>
+        <h1>Inventory</h1>
+        <p>Search, filter, and click a vehicle to view details.</p>
+      </div>
+      <div class="inv-pill" id="resultCount">0 vehicles</div>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section class="inv-filters">
+    <div class="container">
+      <div class="filters-grid">
+        <div class="field">
+          <label for="search">Search</label>
+          <input id="search" placeholder="Try: Camry, Civic, Truck, EV..." />
+        </div>
+
+        <div class="field">
+          <label for="make">Make</label>
+          <select id="make">
+            <option value="Any">Any</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="fuel">Fuel</label>
+          <select id="fuel">
+            <option value="Any">Any</option>
+            <option value="Gas">Gas</option>
+            <option value="Electric">Electric</option>
+            <option value="Hybrid">Hybrid</option>
+            <option value="Diesel">Diesel</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="price">Price</label>
+          <select id="price">
+            <option value="Any">Any</option>
+            <option value="0-20000">Under $20k</option>
+            <option value="20000-30000">$20k–$30k</option>
+            <option value="30000-40000">$30k–$40k</option>
+            <option value="40000-max">$40k+</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="sort">Sort</label>
+          <select id="sort">
+            <option value="year-desc">Newest</option>
+            <option value="price-asc">Price: Low → High</option>
+            <option value="price-desc">Price: High → Low</option>
+            <option value="miles-asc">Miles: Low → High</option>
+          </select>
+        </div>
+
+        <div class="field actions">
+          <button class="btn" id="clearFilters" type="button">Clear</button>
+          <a class="btn primary" href="contact.html">Request Info</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Grid -->
+  <section class="inv-grid">
+    <div class="container">
+      <div class="inventory-cards" id="inventoryGrid" aria-live="polite"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <img src="assets/logo.jpeg.jpeg" alt="TopWheels Logo" class="footer-logo">
+      <p>TopWheels Int, Auto Sales LLC</p>
+      <p>📞 336-687-4162</p>
+    </div>
+
+    <div>
+      <h4>Pages</h4>
+      <a href="inventory.html">Inventory</a>
+      <a href="financing.html">Financing</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+
+  <p class="copy">© <span id="year"></span> TopWheels Int, Auto Sales LLC</p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
